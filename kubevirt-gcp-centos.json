@@ -1,0 +1,60 @@
+{
+  "builders": [
+    {
+      "type": "googlecompute",
+      "account_file": "kubevirt-button-11642eb3792d.json",
+      "project_id": "kubevirt-button",
+      "source_image_family": "centos-7",
+      "disk_size": 50,
+      "image_description": "Kubevirt button",
+      "image_name": "kubevirt-button",
+      "instance_name": "kubevirt",
+      "machine_type": "custom-2-8192",
+      "network_ip": "10.132.15.253",
+      "ssh_username": "centos",
+      "zone": "europe-west1-b",
+      "image_licenses": ["projects/vm-options/global/licenses/enable-vmx"]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "kubevirt-button/deploy.sh",
+      "destination": "/home/centos/deploy.sh"
+    },
+    {
+      "type": "file",
+      "source": "kubevirt-button/kubernetes.repo",
+      "destination": "/home/centos/kubernetes.repo"
+    },
+    {
+      "type": "file",
+      "source": "kubevirt-button/kube-flannel-rbac.yml",
+      "destination": "/home/centos/kube-flannel-rbac.yml"
+    },
+    {
+      "type": "file",
+      "source": "kubevirt-button/kube-flannel.yml",
+      "destination": "/home/centos/kube-flannel.yml"
+    },
+    {
+      "type": "file",
+      "source": "kubevirt-button/kubernetes.repo",
+      "destination": "/home/centos/kubernetes.repo"
+    },
+    {
+      "type": "file",
+      "source": "kubevirt-button/nfs.yml",
+      "destination": "/home/centos/nfs.yml"
+    },
+    {
+      "type": "file",
+      "source": "kubevirt-button/vm.yml",
+      "destination": "/home/centos/vm.yml"
+    },
+    {
+      "type": "shell",
+      "inline": "sudo sh /home/centos/deploy.sh"
+    }
+  ]
+}

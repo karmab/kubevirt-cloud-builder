@@ -1,0 +1,40 @@
+{
+  "builders": [
+    {
+      "type": "googlecompute",
+      "account_file": "kubevirt-button-11642eb3792d.json",
+      "project_id": "kubevirt-button",
+      "source_image_family": "centos-7",
+      "disk_size": 50,
+      "image_description": "Kubevirt button",
+      "image_name": "kubevirt-button3",
+      "instance_name": "kubevirt",
+      "machine_type": "custom-2-8192",
+      "network_ip": "10.132.15.253",
+      "ssh_username": "centos",
+      "zone": "europe-west1-b",
+      "image_licenses": ["projects/vm-options/global/licenses/enable-vmx"]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "image-files/cluster-localhost.yml",
+      "destination": "/home/centos/cluster-localhost.yml"
+    },
+    {
+      "type": "file",
+      "source": "image-files/cluster-wait.yml",
+      "destination": "/home/centos/cluster-wait.yml"
+    },
+    {
+      "type": "file",
+      "source": "image-files/first-boot-centos.sh",
+      "destination": "/home/centos/first-boot-centos.sh"
+    },
+    {
+      "type": "shell",
+      "inline": "sh /home/centos/first-boot-centos.sh"
+    }
+  ]
+}
